@@ -1,3 +1,3 @@
 module.exports = (req, res)=>{
-    res.json({message: "server is running"})
+    res.json({message: "server is running on"})
 }
