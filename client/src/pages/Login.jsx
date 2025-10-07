@@ -15,7 +15,7 @@ const Login = () => {
 
     try {
       const response = await fetch('https://students-teachers-management-eta.vercel.app/api/login', {
-        method: 'GET',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
