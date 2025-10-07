@@ -14,8 +14,8 @@ const Login = () => {
     setError('');
 
     try {
-      const response = await fetch('https://your-api.com/api/login', {
-        method: 'POST',
+      const response = await fetch('https://students-teachers-management-eta.vercel.app/api/login', {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
