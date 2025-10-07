@@ -14,6 +14,7 @@ const Login = () => {
     setError('');
 
     try {
+      console.log("start fetching...")
       const response = await fetch('https://students-teachers-management-eta.vercel.app/api/login', {
         method: 'POST',
         headers: {
@@ -23,6 +24,7 @@ const Login = () => {
       });
 
       const data = await response.json();
+      console.log(data)
 
       if (!response.ok) {
         throw new Error(data.message || 'Login failed');

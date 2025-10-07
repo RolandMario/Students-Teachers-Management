@@ -9,6 +9,10 @@ const uri = 'mongodb+srv://rolandmario2_db_user:eVwzrtbJIc73x14Q@cluster-1.ivdky
 let isConnected = false;
 
 module.exports = async (req, res) => {
+      // Apply CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
