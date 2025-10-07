@@ -6,16 +6,20 @@ const uri = 'mongodb+srv://rolandmario2_db_user:eVwzrtbJIc73x14Q@cluster-1.ivdky
 let isConnected = false;
 
 module.exports = async (req, res) => {
-  // Apply CORS headers
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-  // Handle preflight OPTIONS request
+  // Handle preflight request
   if (req.method === 'OPTIONS') {
-    return res.status(200).end();
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.status(200).end();
+    return;
   }
 
+  // Main response headers
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
