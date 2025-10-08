@@ -22,7 +22,7 @@ export default function StudentForm() {
     setMessage('');
 
     try {
-      const res = await fetch('/api/registerStudent', {
+      const res = await fetch('https://students-teachers-management-eta.vercel.app/registerStudent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

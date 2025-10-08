@@ -1,5 +1,5 @@
 // src/App.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const students = [
   { id: '652f1a2b3c4d5e6f7g8h9i0j', name: 'Alice Johnson' },
@@ -9,6 +9,10 @@ const students = [
 
 export default function StudentAttendance() {
   const [date, setDate] = useState('');
+
+  const [students, setStudents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const [session, setSession] = useState('morning');
   const [currentClass, setCurrentClass] = useState('JSS1');
   const [records, setRecords] = useState(
@@ -18,6 +22,28 @@ export default function StudentAttendance() {
       reason: ''
     }))
   );
+
+
+    // Load students from backend
+  useEffect(() => {
+    async function fetchStudents() {
+      try {
+        const res = await fetch('https://students-teachers-management-eta.vercel.app/fetchAllStudents');
+        const data = await res.json();
+        setStudents(data);
+        setRecords(data.map(student => ({
+          studentId: student._id,
+          status: 'present',
+          reason: ''
+        })));
+      } catch (err) {
+        console.error('Failed to load students:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchStudents();
+  }, []);
 
   const handleStatusChange = (index, value) => {
     const updated = [...records];
