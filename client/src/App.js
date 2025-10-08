@@ -14,6 +14,7 @@ import Teachers from './components/Teachers';
 // import Classes from './components/Classes';
 import AttendanceForm from './components/AttendanceForm';
 import StudentAttendance from './components/StudentAttendance';
+import StudentForm from './pages/StudentForm';
 function App() {
   return (
     
@@ -32,6 +33,7 @@ function App() {
             <Route path="manage-user" element={<ManageUser />} />
             <Route path="stats" element={<StatCard />} />
             <Route path="attendance" element={<StudentAttendance/>} />
+            <Route path="/admin-dashboard/student-enrollment" element={<StudentForm/>} />
         </Route>
       {/* <AdminDashboard/> */}
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SearchBar from './SearchBar';
 import StudentCard from './StudentCard';
+import { Link } from 'react-router-dom';
 
 const StudentsMenu = () => {
 const [isOpen, setIsOpen] = useState(false);
@@ -57,7 +58,7 @@ const TRANSACTIONS_PER_PAGE = 3;
               <p>View and manage student enrollments and performance</p>
             </div>
             <div className=' sm:justify-self-end'>
-              <button className=' bg-indigo-500 p-2 text-white rounded-sm '>Enroll Student</button>
+              <Link to='/admin-dashboard/student-enrollment' className=' bg-indigo-500 p-2 text-white rounded-sm '>Enroll Student</Link>
             </div>
       </section>
     <div className=" flex items-center justify-center">
