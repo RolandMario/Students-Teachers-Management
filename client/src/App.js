@@ -13,6 +13,7 @@ import StudentsMenu from './components/StudentsMenu';
 import Teachers from './components/Teachers';
 // import Classes from './components/Classes';
 import AttendanceForm from './components/AttendanceForm';
+import StudentAttendance from './components/StudentAttendance';
 function App() {
   return (
     
@@ -30,7 +31,7 @@ function App() {
             <Route path="notifications" element={<NotificationCard message={"New Student added"} />} />
             <Route path="manage-user" element={<ManageUser />} />
             <Route path="stats" element={<StatCard />} />
-            <Route path="attendance" element={<AttendanceForm/>} />
+            <Route path="attendance" element={<StudentAttendance/>} />
         </Route>
       {/* <AdminDashboard/> */}
 

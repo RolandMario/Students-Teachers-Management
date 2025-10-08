@@ -1,12 +1,13 @@
 import { useState } from 'react';
 //import React, useState from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -33,7 +34,8 @@ const Login = () => {
       // Handle successful login (e.g., save token, redirect)
       console.log('Login successful:', data);
       // localStorage.setItem('token', data.token);
-      // navigate('/dashboard');
+      //navigate('/dashboard');
+      navigate('/admin-dashboard/reports')
 
     } catch (err) {
       setError(err.message);
