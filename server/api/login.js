@@ -1,8 +1,7 @@
-// /api/checkUser.js
+
 
 const mongoose = require('mongoose');
-// const AdminLogin = require('../models/admin_login'); // No .default needed
-import AdminLogin from '../models/admin_login';
+const AdminLogin = require('../models/admin_login')
 const uri = 'mongodb+srv://rolandmario2_db_user:eVwzrtbJIc73x14Q@cluster-1.ivdkyjp.mongodb.net/Stu_Tea?retryWrites=true&w=majority&appName=Cluster-1'
 let isConnected = false;
 
