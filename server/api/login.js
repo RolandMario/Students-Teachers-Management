@@ -6,6 +6,7 @@ const uri = 'mongodb+srv://rolandmario2_db_user:eVwzrtbJIc73x14Q@cluster-1.ivdky
 let isConnected = false;
 
 module.exports = async (req, res) => {
+    console.log("Inside the api function...")
   // Handle preflight request
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Origin', '*');
