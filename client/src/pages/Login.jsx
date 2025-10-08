@@ -15,14 +15,14 @@ const Login = () => {
 
     try {
       console.log("start fetching...")
-      const response = await fetch('https://students-teachers-management-eta.vercel.app/api/login', {
+      const response = await fetch('https://students-teachers-management-eta.vercel.app/login', {
         method: 'POST',
-        // headers: {
-        //   'Content-Type': 'application/json',
-        // },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ email, password }),
       });
-
+      console.log((email, password))
       const data = await response.json();
       console.log(data)
 
