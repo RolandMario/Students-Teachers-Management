@@ -28,7 +28,7 @@ export default function StudentAttendance() {
   useEffect(() => {
     async function fetchStudents() {
       try {
-        const res = await fetch('https://students-teachers-management-eta.vercel.app/fetchAllStudents');
+        const res = await fetch(`https://students-teachers-management-eta.vercel.app/getStudentsByClass?currentClass=${currentClass}`);
         const data = await res.json();
         setStudents(data);
         setRecords(data.map(student => ({
