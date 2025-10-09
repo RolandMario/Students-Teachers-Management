@@ -43,7 +43,7 @@ export default function StudentAttendance() {
       }
     }
     fetchStudents();
-  }, []);
+  }, [students]);
 
   const handleStatusChange = (index, value) => {
     const updated = [...records];
