@@ -1,12 +1,10 @@
 //import React from 'react';
 import { useState } from 'react';
-import StatCard from '../components/StatCard';
-import ManageUser from '../components/ManageUser';
-import NotificationCard from '../components/NotificationCard';
+
 import Sidebar from '../components/Sidebar';
-import ReportAnalytics from '../components/ReportAnalytics';
+
 import Header from '../components/Header';
-import {Router, Routes, Route, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 const AdminDashboard = () => {
 

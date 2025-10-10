@@ -7,7 +7,7 @@ export default function StudentAttendance() {
   const [date, setDate] = useState('');
 
   const [students, setStudents] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
 
   const [session, setSession] = useState('morning');
   const [currentClass, setCurrentClass] = useState('JSS1');

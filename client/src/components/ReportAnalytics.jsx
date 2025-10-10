@@ -44,32 +44,7 @@ const ReportAnalytics = () => {
     }]
   };
 
-const attendanceData = {
-  labels: ['Oct 1', 'Oct 2', 'Oct 3', 'Oct 4', 'Oct 5'],
-  datasets: [
-    {
-      label: 'Present',
-      data: [25, 28, 22, 30, 27],
-      borderColor: '#4ade80',
-      backgroundColor: '#4ade80',
-      tension: 0.4
-    },
-    {
-      label: 'Absent',
-      data: [5, 3, 6, 2, 4],
-      borderColor: '#f87171',
-      backgroundColor: '#f87171',
-      tension: 0.4
-    },
-    {
-      label: 'Excused',
-      data: [2, 1, 4, 0, 1],
-      borderColor: '#60a5fa',
-      backgroundColor: '#60a5fa',
-      tension: 0.4
-    }
-  ]
-};
+
 
 const options = {
   responsive: true,
@@ -97,12 +72,13 @@ const options = {
 
     useEffect(() => {
     async function fetchStudentsAttendanceRecords() {
+      console.log("execution...")
       try {
         const res = await fetch(`https://students-teachers-management-eta.vercel.app/getAllAttendanceRecords`);
         const data = await res.json();
+        console.log(data)
         setStudentsRecords(data);
-        const uniqueStudentIds = new Set(studentsRecords.map(record => record.student));
-        setTotalStudents(uniqueStudentIds.size);
+ 
             } catch (err) {
         console.error('Failed to load students:', err);
       } finally {
@@ -110,8 +86,63 @@ const options = {
       }
     }
     fetchStudentsAttendanceRecords();
-  }, [totalStudents]);
+  }, []);
 
+  useEffect(() => {
+  if (studentsRecords.length > 0) {
+    const uniqueStudentIds = new Set(
+      studentsRecords.map(record => record.student._id || record.student)
+    );
+    setTotalStudents(uniqueStudentIds.size);
+  }
+}, [studentsRecords]);
+
+// Step 1: Normalize date and group counts
+const dateMap = {};
+
+studentsRecords.forEach(record => {
+  const dateStr = record.date.slice(0, 10); // YYYY-MM-DD
+  const key = dateStr;
+
+  if (!dateMap[key]) {
+    dateMap[key] = { present: 0, absent: 0, excused: 0 };
+  }
+
+  if (record.status === 'present') dateMap[key].present++;
+  else if (record.status === 'absent') dateMap[key].absent++;
+  else if (record.status === 'excused') dateMap[key].excused++;
+});
+
+// Step 2: Format for Chart.js
+const data = {
+  labels: Object.keys(dateMap).map(dateStr => {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }); // e.g. "Oct 8"
+  }),
+  datasets: [
+    {
+      label: 'Present',
+      data: Object.values(dateMap).map(d => d.present),
+      borderColor: '#4ade80',
+      backgroundColor: '#4ade80',
+      tension: 0.4
+    },
+    {
+      label: 'Absent',
+      data: Object.values(dateMap).map(d => d.absent),
+      borderColor: '#f87171',
+      backgroundColor: '#f87171',
+      tension: 0.4
+    },
+    {
+      label: 'Excused',
+      data: Object.values(dateMap).map(d => d.excused),
+      borderColor: '#60a5fa',
+      backgroundColor: '#60a5fa',
+      tension: 0.4
+    }
+  ]
+};
   return (
     <div className='flex-col'>
         <section className=' grid grid-cols-1 sm:grid-cols-4 gap-4 mb-6'>
@@ -133,7 +164,7 @@ const options = {
       {/* Attendance Trends */}
       <div className="bg-white p-4 rounded shadow-md">
         <h3 className="text-lg font-semibold mb-2">Attendance Trends</h3>
-        <Line data={attendanceData} options={options} />
+        <Line data={data} options={options} />
         
       </div>
 

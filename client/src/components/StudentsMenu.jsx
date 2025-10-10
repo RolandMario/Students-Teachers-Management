@@ -4,7 +4,7 @@ import StudentCard from './StudentCard';
 import { Link } from 'react-router-dom';
 
 const StudentsMenu = () => {
-const [isOpen, setIsOpen] = useState(false);
+
 const [currentPage, setCurrentPage] = useState(1)
 const TRANSACTIONS_PER_PAGE = 3;
 

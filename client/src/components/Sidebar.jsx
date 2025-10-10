@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import StudentsMenu from './StudentsMenu';
+
 
 const Sidebar = ({ isOpen, closeSidebar }) => {
   return (

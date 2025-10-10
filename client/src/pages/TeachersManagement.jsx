@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import StudentCard from '../components/StudentCard';
+
 import SearchBar from '../components/SearchBar';
 import TeachersRecords from '../components/TeachersRecords';
 
 const TeachersManagement = () => {
-const [isOpen, setIsOpen] = useState(false);
+
 const [currentPage, setCurrentPage] = useState(1)
 const TRANSACTIONS_PER_PAGE = 10;
 
