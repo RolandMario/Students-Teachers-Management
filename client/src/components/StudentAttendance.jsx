@@ -1,11 +1,7 @@
 // src/App.jsx
 import React, { useState, useEffect } from 'react';
 
-const students = [
-  { id: '652f1a2b3c4d5e6f7g8h9i0j', name: 'Alice Johnson' },
-  { id: '652f1a2b3c4d5e6f7g8h9i1k', name: 'Bob Smith' },
-  { id: '652f1a2b3c4d5e6f7g8h9i2l', name: 'Chinedu Okoro' },
-];
+
 
 export default function StudentAttendance() {
   const [date, setDate] = useState('');
