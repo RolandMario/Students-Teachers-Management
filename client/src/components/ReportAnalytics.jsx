@@ -34,6 +34,17 @@ const ReportAnalytics = () => {
 
   const [studentsRecords, setStudentsRecords] = useState([]);
   const [totalStudents, setTotalStudents] = useState(0)
+  const [avgPerformance, setAvgPerformance] = useState({
+    morningPercentage: 0,
+    afternoonPercentage : 0
+  })
+
+  // Calculate percentages
+function calculatePresentPercentage(sessionRecords) {
+  const total = sessionRecords.length;
+  const present = sessionRecords.filter(r => r.status === 'present').length;
+  return total > 0 ? ((present / total) * 100).toFixed(2) : '0.00';
+}
   // Sample Data
   const performanceData = {
     labels: ['Math', 'Science', 'English', 'History', 'Art'],
@@ -97,6 +108,17 @@ const options = {
   }
 }, [studentsRecords]);
 
+
+const sessions = { morning: [], afternoon: [] };
+studentsRecords.forEach(r => sessions[r.session].push(r));
+console.log("session", sessions)
+const avg ={
+  morningPercentage: calculatePresentPercentage(sessions.morning),
+  afternoonPercentage: calculatePresentPercentage(sessions.afternoon)
+}
+// Group by session
+
+
 // Step 1: Normalize date and group counts
 const dateMap = {};
 
@@ -148,7 +170,7 @@ const data = {
         <section className=' grid grid-cols-1 sm:grid-cols-4 gap-4 mb-6'>
         <StatCard title={"Total Students"} value={totalStudents}/>
         <StatCard title={"Active Courses"} value={10}/>
-        <StatCard title={"Avg Attendance"} value={"60%"}/> 
+        <StatCard title={"Avg Attendance"} value={`${avg.morningPercentage}%`}/> 
         <StatCard title={"Total Teachers"} value={50}/>    
         </section>
 

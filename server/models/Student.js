@@ -1,6 +1,7 @@
 // models/Student.js
 const mongoose = require('mongoose');
-
+const AssessmentSchema = require('./Assessment');
+const AttendanceSchema = require('./Attendance')
 const studentSchema = new mongoose.Schema({
   name: { 
     type: String,
@@ -16,6 +17,8 @@ const studentSchema = new mongoose.Schema({
      required: true
     
     },
+    assessment: [AssessmentSchema],
+    attendance: [AttendanceSchema]
   // Add other fields as needed
 });
 

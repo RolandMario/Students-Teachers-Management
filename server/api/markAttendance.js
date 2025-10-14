@@ -2,8 +2,9 @@
 const mongoose = require('mongoose');
 const Student = require('../models/Student');
 const Attendance = require('../models/Attendance');
-const uri = 'mongodb+srv://rolandmario2_db_user:eVwzrtbJIc73x14Q@cluster-1.ivdkyjp.mongodb.net/Stu_Tea?retryWrites=true&w=majority&appName=Cluster-1'
-
+//const uri = 'mongodb+srv://rolandmario2_db_user:eVwzrtbJIc73x14Q@cluster-1.ivdkyjp.mongodb.net/Stu_Tea?retryWrites=true&w=majority&appName=Cluster-1'
+require('dotenv').config();
+const uri = process.env.DB_URL
 
 module.exports = async (req, res) => {
 
@@ -23,7 +24,7 @@ module.exports = async (req, res) => {
 
   if (req.method !== 'POST') return res.status(405).end();
 
-  const { date, session, records } = req.body;
+  const { date, session, records, term } = req.body;
 
   if (!date || !session || !Array.isArray(records)) {
     return res.status(400).json({ error: 'Missing required fields' });

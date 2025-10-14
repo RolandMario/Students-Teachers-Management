@@ -11,6 +11,7 @@ export default function StudentAttendance() {
 
   const [session, setSession] = useState('morning');
   const [currentClass, setCurrentClass] = useState('JSS1');
+  const [term, setTerm] = useState('first_term');
   const [records, setRecords] = useState(
     students.map(student => ({
       studentId: student.id,
@@ -39,7 +40,7 @@ export default function StudentAttendance() {
       }
     }
     fetchStudents();
-  }, [students]);
+  }, [currentClass]);
 
   const handleStatusChange = (index, value) => {
     const updated = [...records];
@@ -59,7 +60,8 @@ export default function StudentAttendance() {
     const payload = {
       date,
       session,
-      records
+      records,
+      term
     };
 
     const res = await fetch('https://students-teachers-management-eta.vercel.app/markAttendance', {
@@ -83,16 +85,27 @@ export default function StudentAttendance() {
               value={date}
               onChange={e => setDate(e.target.value)}
               required
-              className="border p-2 rounded w-1/3 bg-inherit text-white"
+              className="border p-2 rounded w-1/4 bg-inherit text-white"
             />
             <select
               value={session}
               onChange={e => setSession(e.target.value)}
               required
-              className="border p-2 rounded w-1/3 bg-inherit text-white"
+              className="border p-2 rounded w-1/4 bg-slate-700 text-white"
             >
               <option value="morning">Morning</option>
               <option value="afternoon">Afternoon</option>
+            </select>
+
+            <select
+              value={term}
+              onChange={e => setTerm(e.target.value)}
+              required
+              className="border p-2 rounded w-1/4 bg-slate-700 text-white"
+            >
+              <option value="first_term">first_term</option>
+              <option value="second_term">second_term</option>
+              <option value="third_term">third_term</option>
             </select>
 
 
@@ -100,7 +113,7 @@ export default function StudentAttendance() {
               value={currentClass}
               onChange={e => setCurrentClass(e.target.value)}
               required
-              className="border p-2 rounded w-1/3 bg-inherit text-white"
+              className="border p-2 rounded w-1/4 bg-slate-700 text-white"
             >
               <option value="JSS1">JSS1</option>
               <option value="JSS2">JSS2</option>

@@ -22,6 +22,11 @@ const attendanceSchema = new mongoose.Schema({
       enum: ['present', 'absent', 'excused'],
       required: true
        },
+  term: {
+    type: String,
+    enum: ['first_term', 'second_term', 'third_term'],
+    required: true
+  },
   reason: {
      type: String 
     }, // Optional reason for absent or excused
