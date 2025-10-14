@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
 
   const { date, session, records, term } = req.body;
 
-  if (!date || !session || !Array.isArray(records)) {
+  if (!date || !session || !Array.isArray(records) || !term) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
@@ -39,7 +39,8 @@ module.exports = async (req, res) => {
         filter: {
           student: studentId,
           date: attendanceDate,
-          session
+          session,
+          term
         },
         update: {
           $set: {
