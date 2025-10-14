@@ -17,8 +17,8 @@ const studentSchema = new mongoose.Schema({
      required: true
     
     },
-    assessment: [AssessmentSchema],
-    attendance: [AttendanceSchema]
+    assessments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Assessment' }],
+    attendance:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Attendance' }] 
   // Add other fields as needed
 });
 
