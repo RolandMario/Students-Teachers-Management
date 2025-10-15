@@ -43,7 +43,7 @@ module.exports = async (req, res) => {
       // Upload image to Google Drive
       const fileMetadata = {
         name: req.file.originalname,
-        parents: ['your-folder-id'] // optional: replace with actual folder ID
+        // parents: ['your-folder-id'] // optional: replace with actual folder ID
       };
 
         const media = {
