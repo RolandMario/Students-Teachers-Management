@@ -2,9 +2,10 @@
 
 const mongoose = require('mongoose');
 const AdminLogin = require('../models/admin_login')
-const uri = 'mongodb+srv://rolandmario2_db_user:eVwzrtbJIc73x14Q@cluster-1.ivdkyjp.mongodb.net/Stu_Tea?retryWrites=true&w=majority&appName=Cluster-1'
-let isConnected = false;
 
+let isConnected = false;
+require('dotenv').config();
+const uri = process.env.DB_URL
 module.exports = async (req, res) => {
     console.log("Inside the api function...")
   // Handle preflight request

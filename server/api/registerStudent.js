@@ -1,39 +1,72 @@
-// api/registerStudent.js
+const { google } = require('googleapis');
+const multer = require('multer');
 const mongoose = require('mongoose');
-const Student = require('../models/Student');
-const uri = 'mongodb+srv://rolandmario2_db_user:eVwzrtbJIc73x14Q@cluster-1.ivdkyjp.mongodb.net/Stu_Tea?retryWrites=true&w=majority&appName=Cluster-1'
+const Student = require('../models/Student'); // adjust path if needed
+require('dotenv').config();
+// Multer setup
+const upload = multer({ storage: multer.memoryStorage() });
 
+// MongoDB connection
+if (!mongoose.connection.readyState) {
+  mongoose.connect(process.env.DB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
+}
+
+// Google OAuth setup
+const oauth2Client = new google.auth.OAuth2(
+  process.env.GOOGLE_CLIENT_ID,
+  process.env.GOOGLE_CLIENT_SECRET,
+  process.env.GOOGLE_REDIRECT_URI
+);
+oauth2Client.setCredentials({ refresh_token: process.env.GOOGLE_REFRESH_TOKEN });
+const drive = google.drive({ version: 'v3', auth: oauth2Client });
 
 module.exports = async (req, res) => {
+  if (req.method !== 'POST') return res.status(405).send('Method Not Allowed');
 
-     // Handle preflight request
-  if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    res.status(200).end();
-    return;
-  }
+  upload.single('image')(req, res, async () => {
+    try {
+      const { name, email, phone, class: studentClass, studentId } = req.body;
 
-  // Main response headers
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  if (req.method !== 'POST') return res.status(405).end();
+      // Upload image to Google Drive
+      const fileMetadata = {
+        name: req.file.originalname,
+        parents: ['your-folder-id'] // optional: replace with actual folder ID
+      };
 
-  const { name, studentId, class: studentClass } = req.body;
+      const media = {
+        mimeType: req.file.mimetype,
+        body: Buffer.from(req.file.buffer)
+      };
 
-  if (!name || !studentId) {
-    return res.status(400).json({ error: 'Name and Student ID are required' });
-  }
+      const driveResponse = await drive.files.create({
+        resource: fileMetadata,
+        media: media,
+        fields: 'id'
+      });
 
-  try {
-    await mongoose.connect(uri);
-    const student = new Student({ name, studentId, class: studentClass });
-    await student.save();
-    res.status(200).json({ message: 'Student registered successfully' });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Server error' });
-  }
+      const fileId = driveResponse.data.id;
+      const driveUrl = `https://drive.google.com/file/d/${fileId}/view`;
+
+      // Save student data to MongoDB
+      const student = new Student({
+        name,
+        email,
+        phone,
+        class: studentClass,
+        studentId,
+        imageDriveId: fileId,
+        imageDriveUrl: driveUrl
+      });
+
+      await student.save();
+
+      res.status(200).json({ message: 'Student saved successfully', student });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Failed to upload and save data' });
+    }
+  });
 };

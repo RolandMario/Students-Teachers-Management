@@ -1,9 +1,16 @@
 // models/Student.js
 const mongoose = require('mongoose');
-const AssessmentSchema = require('./Assessment');
-const AttendanceSchema = require('./Attendance')
+
 const studentSchema = new mongoose.Schema({
   name: { 
+    type: String,
+     required: true 
+    },
+  email: { 
+    type: String,
+     required: true 
+    },
+  phone: { 
     type: String,
      required: true 
     },
@@ -11,6 +18,12 @@ const studentSchema = new mongoose.Schema({
      type: String,
     required: true,
      unique: true 
+    },
+    imageDriveId:{
+      type: String
+    },
+    imageDriveUrl:{
+      type: String,
     },
   class: {
      type: String,
