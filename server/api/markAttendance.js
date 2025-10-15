@@ -24,9 +24,9 @@ module.exports = async (req, res) => {
 
   if (req.method !== 'POST') return res.status(405).end();
 
-  const { date, session, records, term } = req.body;
+  const { date, session, records, term, currentClass } = req.body;
 
-  if (!date || !session || !Array.isArray(records) || !term) {
+  if (!date || !session || !Array.isArray(records) || !term || !currentClass) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
@@ -40,7 +40,8 @@ module.exports = async (req, res) => {
           student: studentId,
           date: attendanceDate,
           session,
-          term
+          term,
+          class: currentClass
         },
         update: {
           $set: {

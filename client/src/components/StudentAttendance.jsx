@@ -61,7 +61,8 @@ export default function StudentAttendance() {
       date,
       session,
       records,
-      term
+      term,
+      currentClass
     };
 
     const res = await fetch('https://students-teachers-management-eta.vercel.app/markAttendance', {
