@@ -14,9 +14,9 @@ const oauth2Client = new google.auth.OAuth2(
 
 // console.log('Authorize this app by visiting this url:', authUrl);
 
-oauth2Client.getToken(process.env.YOUR_AUTH_CODE).then(({ tokens }) => {
-  console.log('Refresh Token:', tokens.refresh_token);
-});
+// oauth2Client.getToken(process.env.YOUR_AUTH_CODE).then(({ tokens }) => {
+//   console.log('Refresh Token:', tokens.refresh_token);
+// });
 
 
 }
