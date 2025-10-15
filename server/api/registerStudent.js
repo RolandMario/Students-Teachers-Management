@@ -2,6 +2,7 @@ const { google } = require('googleapis');
 const multer = require('multer');
 const mongoose = require('mongoose');
 const Student = require('../models/Student'); // adjust path if needed
+const { Readable } = require('stream');
 require('dotenv').config();
 // Multer setup
 const upload = multer({ storage: multer.memoryStorage() });
@@ -29,6 +30,15 @@ module.exports = async (req, res) => {
   upload.single('image')(req, res, async () => {
     try {
       const { name, email, phone, class: studentClass, studentId } = req.body;
+    
+
+        function bufferToStream(buffer) {
+          const stream = new Readable();
+          stream.push(buffer);
+          stream.push(null);
+          return stream;
+        }
+
 
       // Upload image to Google Drive
       const fileMetadata = {
@@ -36,10 +46,11 @@ module.exports = async (req, res) => {
         parents: ['your-folder-id'] // optional: replace with actual folder ID
       };
 
-      const media = {
-        mimeType: req.file.mimetype,
-        body: Buffer.from(req.file.buffer)
-      };
+        const media = {
+          mimeType: req.file.mimetype,
+          body: bufferToStream(req.file.buffer) // ✅ Now it's a stream
+        };
+
 
       const driveResponse = await drive.files.create({
         resource: fileMetadata,
