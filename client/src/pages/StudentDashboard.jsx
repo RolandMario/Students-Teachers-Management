@@ -12,7 +12,7 @@ function App() {
   const [selectedTerm, setSelectedTerm] = useState(mockStudent.term);
   const [selectedClass, setSelectedClass] = useState(mockStudent.class);
   const [student, setStudent] = useState(mockStudent);
-  const [user, setUser] = useState()
+  const [user, setUser] = useState({})
 useEffect(()=>{
   async function fetchData() {
     try {
@@ -24,6 +24,7 @@ useEffect(()=>{
               const data = await res.json();
               setUser(data);
               console.log(data)
+              
               console.log("students info fetched successfully")    
         }
     
@@ -32,7 +33,7 @@ useEffect(()=>{
     }
   }
   fetchData()
-}, [user])
+}, [])
   // Filtered data
   const filteredAssessments = student.assessments.filter(
     a => a.term === selectedTerm && student.class === selectedClass
@@ -78,7 +79,13 @@ useEffect(()=>{
           setSelectedClass={setSelectedClass}
         />
 
-        <StudentProfile name={user.name} studentId={user.studentId} selectedClass={user.class} phone={user.phone} />
+        <StudentProfile 
+         name={user.name} 
+         phone={user.phone} 
+         selectedClass={user.class} 
+         studentId={user.studentId}
+         photo={user.imageDriveId}
+         />
         </div>
 
 

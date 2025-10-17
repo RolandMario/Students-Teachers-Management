@@ -1,7 +1,14 @@
-export default function StudentProfile({ name='', studentId='', selectedClass='', phone='' }) {
+export default function StudentProfile({ name='', studentId='', selectedClass='', phone='', photo }) {
   return (
     <div className="flex  gap-4 mb-6">
-      <img src={"/logo192.png"} alt="Student" className="w-20 h-20 rounded-full object-cover" />
+ <iframe
+          src={`https://drive.google.com/file/d/${photo}/preview`}
+          width="80"
+          height="80"
+          style={{ borderRadius: '50%' }}
+          // allow="autoplay"
+        />
+
       <div>
         <h2 className="text-xl font-bold">{name}</h2>
         <p>ID: {studentId}</p>
