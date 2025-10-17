@@ -78,7 +78,7 @@ useEffect(()=>{
           setSelectedClass={setSelectedClass}
         />
 
-        <StudentProfile student={user} />
+        <StudentProfile name={user.name} studentId={user.studentId} selectedClass={user.class} phone={user.phone} />
         </div>
 
 
