@@ -6,7 +6,7 @@ export default function StudentProfile({ student }) {
         <h2 className="text-xl font-bold">{student.name}</h2>
         <p>ID: {student.studentId}</p>
         <p>Class: {student.class}</p>
-        <p>Term: {student.term}</p>
+        <p>Tel: {student.phone}</p>
       </div>
     </div>
   );

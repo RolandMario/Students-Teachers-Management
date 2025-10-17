@@ -12,7 +12,7 @@ function App() {
   const [selectedTerm, setSelectedTerm] = useState(mockStudent.term);
   const [selectedClass, setSelectedClass] = useState(mockStudent.class);
   const [student, setStudent] = useState(mockStudent);
-  const [user, setUser] = useState([])
+  const [user, setUser] = useState()
 useEffect(()=>{
   async function fetchData() {
     try {
@@ -78,7 +78,7 @@ useEffect(()=>{
           setSelectedClass={setSelectedClass}
         />
 
-        <StudentProfile student={student} />
+        <StudentProfile student={user} />
         </div>
 
 
