@@ -12,15 +12,21 @@ function App() {
   const [selectedTerm, setSelectedTerm] = useState(mockStudent.term);
   const [selectedClass, setSelectedClass] = useState(mockStudent.class);
   const [student, setStudent] = useState(mockStudent);
-  
+  const [user, setUser] = useState([])
 useEffect(()=>{
   async function fetchData() {
     try {
-        const res = await fetch(`https://students-teachers-management-eta.vercel.app/getStudentRecordsById`);
-        const data = await res.json();
-        setStudent(data);
-        console.log(data)
-        console.log("students info fetched successfully")     
+       // Step 1: Extract the email from the URL
+        const queryParams = new URLSearchParams(window.location.search);
+        const email = queryParams.get('email');
+        if(email){
+              const res = await fetch(`https://students-teachers-management-eta.vercel.app/getStudentRecordsById?email=${email}`);
+              const data = await res.json();
+              setUser(data);
+              console.log(data)
+              console.log("students info fetched successfully")    
+        }
+    
     } catch (error) {
       console.log(error)
     }
