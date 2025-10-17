@@ -32,7 +32,7 @@ useEffect(()=>{
     }
   }
   fetchData()
-}, [])
+}, [user])
   // Filtered data
   const filteredAssessments = student.assessments.filter(
     a => a.term === selectedTerm && student.class === selectedClass
