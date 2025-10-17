@@ -1,56 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchBar from './SearchBar';
 import StudentCard from './StudentCard';
 import { Link } from 'react-router-dom';
 
 const StudentsMenu = () => {
-
+const [students, setStudents] = useState([])
 const [currentPage, setCurrentPage] = useState(1)
 const TRANSACTIONS_PER_PAGE = 3;
 
-
+useEffect(()=>{
+  async function fetchData() {
+ try {
+        const res = await fetch(`https://students-teachers-management-eta.vercel.app/fetchAllStudents`);
+        const data = await res.json();
+        setStudents(data);
+        console.log("students info fetched successfully")
+        
+      } catch (err) {
+        console.error('Failed to load students:', err);
+      } finally {
+       // setLoading(false);
+      }
+}
+fetchData();
+},[])
     const handleSearch = (query) => {
     console.log('Searching for:', query);
     // Add your search logic here
   };
-
-
-  const student_details =[
-{
-  name:"Roland",
-  email: "rolandmario2@gmail.com",
-  phone: "07068497568",
-  current_class: "JSS1",
-  attendance: "80%"
-},
-{
-  name:"Julius",
-  email: "juliusedachi@gmail.com",
-  phone: "07068497568",
-  current_class: "SSS1",
-  attendance: "70%"
-},
-{
-  name:"Roland",
-  email: "rolandmario2@gmail.com",
-  phone: "07068497568",
-  current_class: "JSS1",
-  attendance: "50%"
-},
-{
-  name:"Julius",
-  email: "juliusedachi@gmail.com",
-  phone: "07068497568",
-  current_class: "SSS1",
-  attendance: "10%"
-}
-
-  ].slice(    (currentPage - 1) * TRANSACTIONS_PER_PAGE,
-    currentPage * TRANSACTIONS_PER_PAGE)
-
-   const totalPages = Math.ceil(student_details.length / TRANSACTIONS_PER_PAGE);
-
-  return (
+ return (
     <div className=" text-white w-full md:w-full p-4">
       <section className='grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6'>
             <div>
@@ -64,22 +42,11 @@ const TRANSACTIONS_PER_PAGE = 3;
     <div className=" flex items-center justify-center">
       <SearchBar onSearch={handleSearch} />
     </div>
-         {student_details.map((item, index) => (
-        <StudentCard key={index} name={item.name} email={item.email} phone={item.phone} attendance={item.attendance} current_class={item.current_class} />
+         {students.map((item, index) => (
+        <StudentCard key={index} name={item.name} email={item.email} phone={item.phone} attendance={'null'} current_class={item.class} />
       ))}
 
-       <div className=' flex justify-evenly py-6'>
-          <button
-          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-          
-          >Prev</button>
 
-          <button
-          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-          
-          
-          >Next</button>
-       </div>
       </div>
      
   );

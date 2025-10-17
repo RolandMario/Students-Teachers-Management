@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { student as mockStudent } from '../components/studentComponents/data';
 import Filters from '../components/studentComponents/Filters';
 import StudentProfile from '../components/studentComponents/StudentProfile';
@@ -12,7 +12,21 @@ function App() {
   const [selectedTerm, setSelectedTerm] = useState(mockStudent.term);
   const [selectedClass, setSelectedClass] = useState(mockStudent.class);
   const [student, setStudent] = useState(mockStudent);
-
+  
+useEffect(()=>{
+  async function fetchData() {
+    try {
+        const res = await fetch(`https://students-teachers-management-eta.vercel.app/getStudentRecordsById`);
+        const data = await res.json();
+        setStudent(data);
+        console.log(data)
+        console.log("students info fetched successfully")     
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  fetchData()
+}, [])
   // Filtered data
   const filteredAssessments = student.assessments.filter(
     a => a.term === selectedTerm && student.class === selectedClass

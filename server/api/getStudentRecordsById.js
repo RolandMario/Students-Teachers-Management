@@ -21,12 +21,12 @@ module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  const {studentId} = req.query
+  const {email} = req.query
   if (req.method !== 'GET') return res.status(405).end();
 
   try {
     await mongoose.connect(uri);
-const student = await Student.findOne({ studentId }).lean(); // lean() returns a plain JS object
+const student = await Student.findOne({ email}).lean(); // lean() returns a plain JS object
 const attendance = await Attendance.find({ student: student._id }).lean();
 const assessments = await Assessment.find({ student: student._id }).lean();
 

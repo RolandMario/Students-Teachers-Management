@@ -32,7 +32,7 @@ const StudentCard = ({name, email, phone, current_class, attendance})=>{
 
     {/* Action Button */}
     <div className="flex items-start justify-start lg:justify-end">
-      <Link to="/admin-dashboard/student-dashboard" className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+      <Link to={`/admin-dashboard/student-dashboard?email=${email}`} className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
         View Profile
       </Link>
     </div>
