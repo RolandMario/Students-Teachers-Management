@@ -1,4 +1,4 @@
-export default function StudentProfile({ name, studentId, selectedClass, phone }) {
+export default function StudentProfile({ name='', studentId='', selectedClass='', phone='' }) {
   return (
     <div className="flex  gap-4 mb-6">
       <img src={"/logo192.png"} alt="Student" className="w-20 h-20 rounded-full object-cover" />
