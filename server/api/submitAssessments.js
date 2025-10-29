@@ -15,7 +15,7 @@ module.exports = async(req, res)=>{
     if (!isConnected) {
       await mongoose.connect(uri, {
         useNewUrlParser: true,
-        useUnifiedTopology: true,
+        // useUnifiedTopology: true,
       });
       isConnected = true;
     }
