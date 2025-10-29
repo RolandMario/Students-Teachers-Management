@@ -13,10 +13,7 @@ module.exports = async(req, res)=>{
 
   try {
     if (!isConnected) {
-      await mongoose.connect(uri, {
-        useNewUrlParser: true,
-        // useUnifiedTopology: true,
-      });
+      await mongoose.connect(uri);
       isConnected = true;
     }
 
