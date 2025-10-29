@@ -1,15 +1,22 @@
 const mongoose = require('mongoose');
 
-const AssessmentSchema = new mongoose.Schema({
+const assessmentSchema = new mongoose.Schema({
   student: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Student',
     required: true
   },
-  type: {
-    type: String,
-    enum: ['first_test', 'second_test', 'exam'],
-    required: true
+  test1:{
+    type: Number,
+    default: 0
+  },
+  test2:{
+    type: Number,
+    default: 0
+  },
+  exam:{
+    type: Number,
+    default: 0
   },
   term: {
     type: String,
@@ -20,14 +27,11 @@ const AssessmentSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  score: {
-    type: Number,
+  class:{
+    type: String,
     required: true
   },
-  maxScore: {
-    type: Number,
-    required: false
-  },
+
   date: {
     type: Date,
     default: Date.now
@@ -37,4 +41,6 @@ const AssessmentSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('Assessment', AssessmentSchema);
+assessmentSchema.index({ student: 1, date: 1, test1: 1, test2: 1, exam:1 }, { unique: true });
+
+module.exports = mongoose.model('Assessment', assessmentSchema);

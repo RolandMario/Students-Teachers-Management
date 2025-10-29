@@ -7,6 +7,7 @@ const oauth2Client = new google.auth.OAuth2(
   process.env.GOOGLE_REDIRECT_URI
 );
 
+res.json({message:'welcome'})
 // const authUrl = oauth2Client.generateAuthUrl({
 //   access_type: 'offline',
 //   scope: ['https://www.googleapis.com/auth/drive.file']
