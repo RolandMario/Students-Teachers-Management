@@ -7,6 +7,7 @@ const AssessmentForm = () => {
   const [term, setTerm] = useState(['first_term', 'second_term', 'third_term']);
   const [selectedClass, setSelectedClass] = useState('');
   const [selectedSubject, setSelectedSubject] = useState('');
+  const [selectedTerm, setSelectedTerm] = useState('');
   const [students, setStudents] = useState([]);
   const [scores, setScores] = useState({});
 
@@ -38,6 +39,7 @@ const AssessmentForm = () => {
   };
 
 const handleSubmit = async () => {
+  console.log('executing submission...')
   const payload = {
     class: selectedClass,
     subject: selectedSubject,
@@ -50,7 +52,8 @@ const handleSubmit = async () => {
   };
 
   try {
-    const res = await fetch('https://your-backend-url.com/api/submit-assessments', {
+    console.log('payload ', payload)
+    const res = await fetch('https://students-teachers-management-eta.vercel.app/submitAssessments', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -100,12 +103,12 @@ const handleSubmit = async () => {
         </select>
         <select
           className="border p-2 rounded"
-          value={selectedSubject}
-          onChange={e => setSelectedSubject(e.target.value)}
+          value={selectedTerm}
+          onChange={e => setSelectedTerm(e.target.value)}
         >
           <option value="">Select Term</option>
-          {term.map(sub => (
-            <option key={sub} value={sub}>{sub}</option>
+          {term.map(trm => (
+            <option key={trm} value={trm}>{trm}</option>
           ))}
         </select>
       </div>
