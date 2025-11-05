@@ -33,7 +33,9 @@ export default async function handler(req, res) {
     const { class: className, subject, assessments, term } = req.body;
 
     if (!className || !subject || !Array.isArray(assessments)) {
+      console.log('Invalid payload')
       return res.status(400).json({ error: 'Invalid payload' });
+      
     }
 
     const docs = assessments.map(a => ({
@@ -47,9 +49,10 @@ export default async function handler(req, res) {
     }));
 
     await Assessment.insertMany(docs);
-
+    console.log('Assessments saved successfully')
     res.status(200).json({ message: 'Assessments saved successfully', count: docs.length });
   } catch (error) {
     res.status(500).json({ error: error.message });
+    console.log('An error occured', error)
   }
 }

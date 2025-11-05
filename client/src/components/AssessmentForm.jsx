@@ -43,6 +43,7 @@ const handleSubmit = async () => {
   const payload = {
     class: selectedClass,
     subject: selectedSubject,
+    term: selectedTerm,
     assessments: Object.entries(scores).map(([studentId, scoreSet]) => ({
       studentId,
       test1: Number(scoreSet.test1),
