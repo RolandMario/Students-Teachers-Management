@@ -30,7 +30,7 @@ export default async function handler(req, res) {
       await mongoose.connect(uri);
       isConnected = true;
     }
-    const { class: className, subject, assessments, term } = req.body;
+    const { class: className, subject, assessments, term, studentId } = req.body;
 
     if (!className || !subject || !Array.isArray(assessments)) {
       console.log('Invalid payload')
