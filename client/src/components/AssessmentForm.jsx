@@ -15,9 +15,9 @@ const AssessmentForm = () => {
     if (selectedClass && selectedSubject) {
       // Simulate fetch
       const mockStudents = [
-        { id: 'GSS/2025/0001', name: 'Roland Mario' },
-        { id: 'GSS/2025/0002', name: 'Julius Edicha' },
-        { id: 'GSS/2025/0003', name: 'Joshua Chibuike' }
+        { id: '68f172a623924505ed29f60d', name: 'Roland Mario' },
+        { id: '68f175837b6cc2b1b5b59d32', name: 'Julius Edicha' },
+        { id: '68f176087b6cc2b1b5b59d34', name: 'Joshua Chibuike' }
       ];
       setStudents(mockStudents);
       const initialScores = {};
