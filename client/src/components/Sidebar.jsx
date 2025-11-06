@@ -21,6 +21,7 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
         <nav className="space-y-4">
           <Link to="/admin-dashboard/reports" className="block hover:text-yellow-400" >📊 Dashboard</Link>
           <Link to="/admin-dashboard/student" className="block hover:text-yellow-400" >👨‍🎓 Student</Link>
+           <Link to="/admin-dashboard/courses" className="block hover:text-yellow-400" >📘 My Courses</Link>
            <Link to="/admin-dashboard/teacher" className="block hover:text-yellow-400" >👨‍🏫 Teacher</Link>
            <Link to="/admin-dashboard/attendance" className="block hover:text-yellow-400" >📑 Attendance</Link>
           <Link to="/admin-dashboard/notifications" className="block hover:text-yellow-400" onClick={closeSidebar}>🔔 Notifications</Link>

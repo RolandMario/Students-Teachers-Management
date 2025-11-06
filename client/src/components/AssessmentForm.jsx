@@ -12,20 +12,30 @@ const AssessmentForm = () => {
   const [scores, setScores] = useState({});
 
   useEffect(() => {
-    if (selectedClass && selectedSubject) {
+        async function fetchStudents() {
+          try {
+                if (selectedClass && selectedSubject) {
       // Simulate fetch
-      const mockStudents = [
-        { id: '68f172a623924505ed29f60d', name: 'Roland Mario' },
-        { id: '68f175837b6cc2b1b5b59d32', name: 'Julius Edicha' },
-        { id: '68f176087b6cc2b1b5b59d34', name: 'Joshua Chibuike' }
-      ];
-      setStudents(mockStudents);
+
+      const res = await fetch(`https://students-teachers-management-eta.vercel.app/getStudentsByClass?currentClass=${selectedClass}`);
+      const data = await res.json();
+      console.log('json from backend', data)
+      setStudents(data);
+      console.log('fetched students', students)
       const initialScores = {};
-      mockStudents.forEach(s => {
-        initialScores[s.id] = { test1: '', test2: '', exam: '' };
+      data.forEach(s => {
+        console.log('checking id', s._id)
+        initialScores[s._id] = { test1: '', test2: '', exam: '' };
       });
       setScores(initialScores);
     }
+          } catch (error) {
+              console.error('Failed to load students:', error);
+
+          }
+        }
+        fetchStudents();
+
   }, [selectedClass, selectedSubject]);
 
   const handleScoreChange = (studentId, field, value) => {
@@ -77,23 +87,23 @@ const handleSubmit = async () => {
 
 
   return (
-    <div className="max-w-5xl mx-auto p-6 bg-white rounded shadow space-y-6">
-      <h2 className="text-2xl font-bold text-gray-800">📘 Enter Student Assessments</h2>
+    <div className="max-w-5xl mx-auto p-6 bg-inherit rounded shadow space-y-6">
+      <h2 className="text-2xl font-bold text-white">📘 Enter Student Assessments</h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-inherit">
         <select
-          className="border p-2 rounded"
+          className="border p-2 rounded bg-inherit text-white"
           value={selectedClass}
           onChange={e => setSelectedClass(e.target.value)}
         >
           <option value="">Select Class</option>
           {classes.map(cls => (
-            <option key={cls} value={cls}>{cls}</option>
+            <option  key={cls} value={cls}>{cls}</option>
           ))}
         </select>
 
         <select
-          className="border p-2 rounded"
+          className="border p-2 rounded bg-inherit text-white"
           value={selectedSubject}
           onChange={e => setSelectedSubject(e.target.value)}
         >
@@ -103,7 +113,7 @@ const handleSubmit = async () => {
           ))}
         </select>
         <select
-          className="border p-2 rounded"
+          className="border p-2 rounded bg-inherit text-white"
           value={selectedTerm}
           onChange={e => setSelectedTerm(e.target.value)}
         >
@@ -115,9 +125,10 @@ const handleSubmit = async () => {
       </div>
 
       {students.length > 0 && (
+        
         <div className="overflow-x-auto">
           <table className="min-w-full border mt-4">
-            <thead className="bg-gray-100">
+            <thead className="bg-gray-100 bg-inherit text-white">
               <tr>
                 <th className="p-2 text-left">Student</th>
                 <th className="p-2 text-center">Test 1</th>
@@ -127,34 +138,35 @@ const handleSubmit = async () => {
             </thead>
             <tbody>
               {students.map(student => (
-                <tr key={student.id} className="border-t">
-                  <td className="p-2">{student.name}</td>
+                <tr key={student._id} className="border-t">
+                  <td className="p-2 bg-inherit text-white">{student.name}</td>
                   <td className="p-2 text-center">
                     <input
                       type="number"
                       className="w-16 border rounded p-1 text-center"
-                      value={scores[student.id]?.test1 || ''}
-                      onChange={e => handleScoreChange(student.id, 'test1', e.target.value)}
+                      value={scores[student._id]?.test1 || ''}
+                      onChange={e => handleScoreChange(student._id, 'test1', e.target.value)}
                     />
                   </td>
                   <td className="p-2 text-center">
                     <input
                       type="number"
                       className="w-16 border rounded p-1 text-center"
-                      value={scores[student.id]?.test2 || ''}
-                      onChange={e => handleScoreChange(student.id, 'test2', e.target.value)}
+                      value={scores[student._id]?.test2 || ''}
+                      onChange={e => handleScoreChange(student._id, 'test2', e.target.value)}
                     />
                   </td>
                   <td className="p-2 text-center">
                     <input
                       type="number"
                       className="w-16 border rounded p-1 text-center"
-                      value={scores[student.id]?.exam || ''}
-                      onChange={e => handleScoreChange(student.id, 'exam', e.target.value)}
+                      value={scores[student._id]?.exam || ''}
+                      onChange={e => handleScoreChange(student._id, 'exam', e.target.value)}
                     />
                   </td>
                 </tr>
               ))}
+              {console.log('check students state', students)}
             </tbody>
           </table>
 

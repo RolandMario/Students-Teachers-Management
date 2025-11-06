@@ -17,6 +17,7 @@ import StudentAttendance from './components/StudentAttendance';
 import StudentForm from './pages/StudentForm';
 import { StudentsAssessment } from './components/StudentsAssessment';
 import StudentDashboard from './pages/StudentDashboard';
+import Courses from './pages/Courses';
 function App() {
   return (
     
@@ -30,6 +31,7 @@ function App() {
             <Route path="reports" element={<ReportAnalytics />} />
             <Route path='student' element={<StudentsMenu/>}/>
             <Route path='teacher' element={<Teachers/>}/>
+            <Route path='courses' element={<Courses/>}/>
             {/* <Route path='classes' element={<Classes/>}/> */}
             <Route path="notifications" element={<NotificationCard message={"New Student added"} />} />
             <Route path="manage-user" element={<ManageUser />} />
