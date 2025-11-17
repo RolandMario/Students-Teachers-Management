@@ -30,8 +30,8 @@ function CourseEnrollmentForm() {
       try {
         const response = await fetch('https://students-teachers-management-eta.vercel.app/fetchCourses');
         const data = await response.json();
-        setCourses(data);
-        console.log('fetched courses', data)
+        setCourses(data.success);
+        console.log('fetched courses', data.success)
       } catch (error) {
         console.error('Error fetching courses:', error);
       }
