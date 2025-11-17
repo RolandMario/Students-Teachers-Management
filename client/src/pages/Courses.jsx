@@ -2,12 +2,23 @@ import { Link } from "react-router-dom"
 import React, { useState } from 'react';
 import CreateCourseModal from "../components/CreateCourseModal";
 import { toast } from 'react-toastify';
+import CourseCard from "../components/CourseCard";
 const Courses = () => {
 
       const [showModal, setShowModal] = useState(false);
         const [courseName, setCourseName] = useState('');
         const [courseCode, setCourseCode] = useState('');
         const [description, setDescription] = useState('');
+        const [sampleCourse, setSamplaCourse] = useState([
+            {
+        name: 'Introduction to React',
+        code: 'REACT101',
+        description: 'Learn the fundamentals of React including components, hooks, and state management.',
+        enrolledCount: 42,
+        }
+        ])
+
+        
 
         const handleCreate = async() => {
             // Handle course creation logic
@@ -28,17 +39,18 @@ const Courses = () => {
                     throw new Error(data.message || 'Failed to create course');
                 }
             console.log('new course:', newCourse)
+            alert('course created successfully');
             setShowModal(false);
             setCourseName('');
             setCourseCode('');
             setDescription('');
             setShowModal(true)
-            toast.success('course created successfully');
+            
     };
 
     return(
         <>
-            <div className=" text-white w-full md:w-full p-4">
+    <div className=" text-white w-full md:w-full p-4">
       <section className='grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 '>
             <div>
               <h1 className=' font-bold text-2xl'>Manage Courses</h1>
@@ -66,12 +78,18 @@ const Courses = () => {
         setDescription={setDescription}
       />
     </div>
-            </div>
-            <input type="text" placeholder=" search courses..." className=" bg-inherit border-2 rounded-md px-2 py-1"/>
+     </div>
+     <input type="text" placeholder=" search courses..." className=" bg-inherit border-2 rounded-md px-2 py-1"/>
       </section>
- 
-
-
+      <section className=" grid grid-cols-2">
+        {sampleCourse.map(c=>{
+            
+            return <CourseCard course={c}/>
+            
+        })}
+        
+      </section>
+        
       </div>
         </>
     )

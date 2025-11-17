@@ -18,6 +18,7 @@ import StudentForm from './pages/StudentForm';
 import { StudentsAssessment } from './components/StudentsAssessment';
 import StudentDashboard from './pages/StudentDashboard';
 import Courses from './pages/Courses';
+import CourseEnrollmentForm from './pages/CourseEnrollmentForm';
 function App() {
   return (
     
@@ -40,6 +41,7 @@ function App() {
             <Route path="/admin-dashboard/student-enrollment" element={<StudentForm/>} />
             <Route path="assessment" element={<StudentsAssessment/>} />
             <Route path="student-dashboard" element={<StudentDashboard/>} />
+            <Route path='enrollment' element={<CourseEnrollmentForm/>}/>
         </Route>
       {/* <AdminDashboard/> */}
 
