@@ -12,7 +12,7 @@ function CourseEnrollmentForm() {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await fetch(`https://students-teachers-management-eta.vercel.app/searchByName?search=${searchTerm}`);
+        const response = await fetch(`https://students-teachers-management-eta.vercel.app/searchByName?name=${searchTerm}`);
         const data = await response.json();
         setStudents(data);
         setFilteredStudents(data);
