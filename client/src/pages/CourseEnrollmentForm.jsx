@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 function CourseEnrollmentForm() {
   const [students, setStudents] = useState(['Roland', 'Julius']);
-  const [filteredStudents, setFilteredStudents] = useState([{id: 'stu001', name:'Roland'}]);
+  const [filteredStudents, setFilteredStudents] = useState([{_id: 'stu001', name:'Roland'}]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStudentId, setSelectedStudentId] = useState('');
   const [courses, setCourses] = useState([{id:'math101', name:'Mathematics'}, {id:'Eng101', name:'English' }]);
@@ -90,7 +90,7 @@ function CourseEnrollmentForm() {
         >
           <option value="">-- Choose a student --</option>
           {filteredStudents.map((student) => (
-            <option key={student.id} value={student.id}>
+            <option key={student._id} value={student._id}>
               {student.name}
             </option>
           ))}

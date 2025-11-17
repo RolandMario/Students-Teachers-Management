@@ -19,7 +19,7 @@ export default async function handler(req, res) {
     if(!req.method === 'GET') return res.status(400).json({error: 'Method Not allowed'})
 
         try {
-            const {name} = req.params
+            const {name} = req.query
             await dbConnect()
             const searchResult = await Student.find({ name: { $regex: name, $options: "i" } })
             if(!searchResult) res.status(401).json({msg: 'Student Not found'})
