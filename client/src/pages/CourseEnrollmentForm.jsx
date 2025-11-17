@@ -15,8 +15,8 @@ function CourseEnrollmentForm() {
         const response = await fetch(`https://students-teachers-management-eta.vercel.app/searchByName?name=${searchTerm}`);
         const data = await response.json();
         setStudents(data);
-        setFilteredStudents(data);
-        console.log('search result', data)
+        setFilteredStudents(data.success || []);
+        console.log('search result', data.success)
       } catch (error) {
         console.error('Error fetching students:', error);
       }
