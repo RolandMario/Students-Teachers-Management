@@ -100,15 +100,15 @@ function CourseEnrollmentForm() {
       <fieldset className="mb-4">
         <legend className="text-white font-semibold mb-2">Select Courses</legend>
         {courses.map((course) => (
-          <label key={course.id} className="block mb-2 text-white">
+          <label key={course._id} className="block mb-2 text-white">
             <input
               type="checkbox"
-              value={course.id}
-              checked={selectedCourses.includes(course.id)}
-              onChange={() => toggleCourse(course.id)}
+              value={course._id}
+              checked={selectedCourses.includes(course._id)}
+              onChange={() => toggleCourse(course._id)}
               className="mr-2 text-white"
             />
-            {course.name}
+            {course.courseName}
           </label>
         ))}
       </fieldset>
