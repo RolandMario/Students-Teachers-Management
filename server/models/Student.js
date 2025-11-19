@@ -32,12 +32,7 @@ const studentSchema = new mongoose.Schema({
     },
     assessments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Assessment' }],
     attendance:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Attendance' }],
-    enrolledCourses: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Course',
-    },
-  ], 
+    enrolledCourses: [{type: mongoose.Schema.Types.ObjectId, ref: 'Course', }], 
     classHistory: [{type:mongoose.Schema.Types.ObjectId, ref: 'ClassHistory'}]
   // Add other fields as needed
 });
